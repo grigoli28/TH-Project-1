@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Student Statistic</title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Statistic of Students Results</h1>
+            <div class="info__block container">
+                <div class="info__box info__box--days">
+                    Total Days
+                    <div class="tot-days">0</div>
+                </div>
+                <div class="info__box info__box--lessons">
+                    Missed Lessons
+                    <div class="miss-less">0</div>
+                </div>
+                <div class="info__box info__box--grade">
+                    Average Grade
+                    <div class="avg-grade">0</div>
+                </div>
+                <div class="info__box info__box--students">
+                    Total Students
+                    <div class="tot-stud">0</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+        <div class="table container">
+
+            <div class="table__head">
+                <h2>Table</h2>
+                <div class="btn-block">
+                    <div id="add-day" class="btn btn--green">Add Day</div>
+                    <div id="rm-day" class="btn btn--red">Remove Day</div>
+                    <div id="upd-tb" class="btn btn--blue">Update Table</div>
+                </div>
+            </div>
+
+            <div class="table__body">
+                <div class="students">
+                    <div class="students__item students__item--empty"></div>
+                    <div class="students__item">Grigol Tchkoidze 1</div>
+                    <div class="students__item">Grigol Tchkoidze 2</div>
+                    <div class="students__item">Grigol Tchkoidze 3</div>
+                    <div class="students__item">Grigol Tchkoidze 4</div>
+                    <div class="students__item">Grigol Tchkoidze 5</div>
+                    <div class="students__item">Grigol Tchkoidze 6</div>
+                    <div class="students__item">Grigol Tchkoidze 7</div>
+                    <div class="students__item">Grigol Tchkoidze 8</div>
+                    <div class="students__item">Grigol Tchkoidze 9</div>
+                    <div class="students__item">Grigol Tchkoidze 10</div>
+                </div>
+
+                <div class="avg-grades">
+                    <div class="avg-grade__item">Average</div>
+                    <div class="avg-grade__item">0</div>
+                    <div class="avg-grade__item">0</div>
+                    <div class="avg-grade__item">0</div>
+                    <div class="avg-grade__item">0</div>
+                    <div class="avg-grade__item">0</div>
+                    <div class="avg-grade__item">0</div>
+                    <div class="avg-grade__item">0</div>
+                    <div class="avg-grade__item">0</div>
+                    <div class="avg-grade__item">0</div>
+                    <div class="avg-grade__item">0</div>
+                </div>
+                <div class="grades">
+                    <!-- <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div>
+                    <div class="grade__col">
+                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                        <div class="grade__item">0</div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            Author
+            <br> 2018 &copy; Grigol Tchkoidze
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
