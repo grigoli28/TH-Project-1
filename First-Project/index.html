@@ -41,251 +41,44 @@
             <div class="table__head">
                 <h2>Table</h2>
                 <div class="btn-block">
-                    <div id="add-day" class="btn btn--green">Add Day</div>
-                    <div id="rm-day" class="btn btn--red">Remove Day</div>
-                    <div id="upd-tb" class="btn btn--blue">Update Table</div>
+                    <div id="add-day" class="btn btn--green noselect">Add Day</div>
+                    <div id="add-stud" class="btn btn--orange noselect">Add Student</div>
+                    <div id="rm-day" class="btn btn--red noselect">Remove Day</div>
+                    <div id="upd-tb" class="btn btn--blue noselect">Update Table</div>
                 </div>
             </div>
 
             <div class="table__body">
                 <div class="students">
-                    <div class="students__item students__item--empty"></div>
-                    <div class="students__item">Grigol Tchkoidze 1</div>
-                    <div class="students__item">Grigol Tchkoidze 2</div>
-                    <div class="students__item">Grigol Tchkoidze 3</div>
-                    <div class="students__item">Grigol Tchkoidze 4</div>
-                    <div class="students__item">Grigol Tchkoidze 5</div>
-                    <div class="students__item">Grigol Tchkoidze 6</div>
-                    <div class="students__item">Grigol Tchkoidze 7</div>
-                    <div class="students__item">Grigol Tchkoidze 8</div>
-                    <div class="students__item">Grigol Tchkoidze 9</div>
-                    <div class="students__item">Grigol Tchkoidze 10</div>
+                    <div class="student__title">First & Last Names</div>
+                    <div id="student--1" class="student__item">Grigol Tchkoidze 1</div>
+                    <div id="student--2" class="student__item">Grigol Tchkoidze 2</div>
+                    <div id="student--3" class="student__item">Grigol Tchkoidze 3</div>
+                    <div id="student--4" class="student__item">Grigol Tchkoidze 4</div>
+                    <div id="student--5" class="student__item">Grigol Tchkoidze 5</div>
+                    <div id="student--6" class="student__item">Grigol Tchkoidze 6</div>
+                    <div id="student--7" class="student__item">Grigol Tchkoidze 7</div>
+                    <div id="student--8" class="student__item">Grigol Tchkoidze 8</div>
+                    <div id="student--9" class="student__item">Grigol Tchkoidze 9</div>
+                    <div id="student--10" class="student__item">Grigol Tchkoidze 10</div>
                 </div>
 
                 <div class="avg-grades">
-                    <div class="avg-grade__item">Average</div>
-                    <div class="avg-grade__item">0</div>
-                    <div class="avg-grade__item">0</div>
-                    <div class="avg-grade__item">0</div>
-                    <div class="avg-grade__item">0</div>
-                    <div class="avg-grade__item">0</div>
-                    <div class="avg-grade__item">0</div>
-                    <div class="avg-grade__item">0</div>
-                    <div class="avg-grade__item">0</div>
-                    <div class="avg-grade__item">0</div>
-                    <div class="avg-grade__item">0</div>
+                    <div id="tot-avg" class="avg-grade__title">Average</div>
+                    <div id="stud-1--avg" class="avg-grade__item">0</div>
+                    <div id="stud-2--avg" class="avg-grade__item">0</div>
+                    <div id="stud-3--avg" class="avg-grade__item">0</div>
+                    <div id="stud-4--avg" class="avg-grade__item">0</div>
+                    <div id="stud-5--avg" class="avg-grade__item">0</div>
+                    <div id="stud-6--avg" class="avg-grade__item">0</div>
+                    <div id="stud-7--avg" class="avg-grade__item">0</div>
+                    <div id="stud-8--avg" class="avg-grade__item">0</div>
+                    <div id="stud-9--avg" class="avg-grade__item">0</div>
+                    <div id="stud-10--avg" class="avg-grade__item">0</div>
                 </div>
                 <div class="grades">
                     <!-- <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                        <div class="grade__item">0</div>
-                    </div>
-                    <div class="grade__col">
-                        <div class="grade__item grade__item--date">Thu Jan 01</div>
+                        <div class="grade__date">Thu Jan 01</div>
                         <div class="grade__item">0</div>
                         <div class="grade__item">0</div>
                         <div class="grade__item">0</div>

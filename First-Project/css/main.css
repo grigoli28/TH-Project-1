@@ -1,8 +1,11 @@
 :root {
     --green: #27ae60;
+    --darker-green: #009432;
     --red: #e74c3c;
+    --darker-red: #EA2027;
     --blue: #2980b9;
     --lighter-blue: #3498db;
+    --orange: #f39c12;
 }
 
 *,
@@ -85,8 +88,30 @@ h2 {
     background-color: var(--red);
 }
 
+.btn--orange {
+    background-color: var(--orange);
+}
+
 .btn--blue {
     background-color: var(--blue);
+}
+
+
+/* noselect class restricts user to select text !!!review */
+
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
 
@@ -98,25 +123,41 @@ h2 {
     border: 1px solid black;
 }
 
-.students__item {
-    text-align: center;
+.student__item {
     padding: 5px;
     margin: 1px;
-    white-space: nowrap;
-    line-height: 1.5;
+    color: white;
     background-color: grey;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
 }
 
-.students__item--empty {
-    height: 34px;
-    background-color: inherit;
+.student__title {
+    padding: 5px;
+    margin: 1px;
+    color: white;
+    background-color: #34495e;
+    text-align: center;
+    line-height: 1.5;
+    white-space: nowrap;
 }
 
 .avg-grade__item {
-    height: 34px;
-    background-color: var(--lighter-blue);
-    margin: 1px;
     padding: 5px;
+    margin: 1px;
+    color: white;
+    background-color: var(--lighter-blue);
+    line-height: 1.5;
+    text-align: center;
+}
+
+.avg-grade__title {
+    padding: 5px;
+    margin: 1px;
+    color: white;
+    background-color: var(--lighter-blue);
+    line-height: 1.5;
     text-align: center;
 }
 
@@ -127,13 +168,20 @@ h2 {
 
 .grade__item {
     height: 34px;
-    background-color: seagreen;
     margin: 1px;
     padding: 5px;
+    color: white;
+    background-color: var(--darker-red);
     text-align: center;
 }
 
-.grade__item--date {
+.grade__date {
+    height: 34px;
+    padding: 5px;
+    margin: 1px;
+    color: white;
+    background-color: seagreen;
+    text-align: center;
     white-space: nowrap;
 }
 
