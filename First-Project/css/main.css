@@ -1,8 +1,11 @@
 :root {
     --green: #27ae60;
+    --darker-green: #009432;
     --red: #e74c3c;
+    --darker-red: #EA2027;
     --blue: #2980b9;
     --lighter-blue: #3498db;
+    --orange: #f39c12;
 }
 
 *,
@@ -26,20 +29,49 @@ h1 {
 
 /* Header */
 
-.info__block {
+.info {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: auto;
     grid-gap: 10px;
 }
 
-.info__box {
+.info__item {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
+    flex-flow: row wrap;
+    justify-content: space-around;
     padding: 5px 10px;
-    font-weight: bold;
+    text-align: center;
     border: 1px solid black;
+}
+
+.info__value {
+    font-weight: bold;
+}
+
+.days::before,
+.less::before,
+.avg::before,
+.stud::before {
+    font-family: "Font Awesome\ 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+.days::before {
+    content: "\f073";
+}
+
+.less::before {
+    content: "\f273";
+}
+
+.avg::before {
+    content: "\f05a";
+}
+
+.stud::before {
+    content: "\f183     \f182";
 }
 
 .table {
@@ -52,7 +84,7 @@ h1 {
 
 .table__head {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-auto-rows: auto;
     justify-content: center;
     align-items: center;
@@ -64,7 +96,7 @@ h2 {
 }
 
 .btn-block {
-    grid-column: 2 / 4;
+    grid-column: 2 / 5;
 }
 
 .btn {
@@ -72,7 +104,6 @@ h2 {
     display: inline-block;
     font-weight: bold;
     padding: 5px 10px;
-    text-align: center;
     border-radius: 3px;
     cursor: pointer;
 }
@@ -90,51 +121,127 @@ h2 {
 }
 
 
+/* noselect class restricts user to select text !!!review */
+
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+
 /* Table body */
 
 .table__body {
     display: flex;
     flex-flow: row nowrap;
     border: 1px solid black;
+    overflow-y: auto;
 }
 
-.students__item {
-    text-align: center;
+.student__item {
     padding: 5px;
     margin: 1px;
-    white-space: nowrap;
-    line-height: 1.5;
+    color: white;
     background-color: grey;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
 }
 
-.students__item--empty {
-    height: 34px;
-    background-color: inherit;
+.student__title {
+    padding: 5px;
+    margin: 1px;
+    color: white;
+    background-color: #34495e;
+    text-align: center;
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+.avg-grade__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    margin: 1px;
+    color: white;
+    background-color: var(--lighter-blue);
+    line-height: 1.5;
 }
 
 .avg-grade__item {
-    height: 34px;
-    background-color: var(--lighter-blue);
-    margin: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 5px;
+    margin: 1px;
+    color: white;
+    background-color: var(--lighter-blue);
+    line-height: 1.5;
+}
+
+.avg-grade__title {
+    padding: 5px;
+    margin: 1px;
+    color: white;
+    background-color: var(--lighter-blue);
+    line-height: 1.5;
     text-align: center;
 }
 
 .grades {
     display: flex;
-    overflow: auto;
+    height: 100%;
+    overflow-x: auto;
 }
 
 .grade__item {
     height: 34px;
-    background-color: seagreen;
     margin: 1px;
     padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: var(--darker-red);
     text-align: center;
 }
 
-.grade__item--date {
+.grade__date {
+    height: 34px;
+    padding: 5px;
+    margin: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: seagreen;
+    text-align: center;
     white-space: nowrap;
+}
+
+.backgr-darker-red {
+    background-color: var(--darker-red);
+}
+
+.backgr-orange {
+    background-color: var(--orange);
+}
+
+.backgr-green {
+    background-color: var(--green);
+}
+
+.backgr-darker-green {
+    background-color: var(--darker-green);
 }
 
 
@@ -142,4 +249,67 @@ h2 {
 
 footer {
     text-align: center;
+}
+
+@media screen and (max-width: 699px) {
+    .info__value {
+        flex-basis: 100%;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    h1 {
+        font-size: 1.8em;
+    }
+    h2 {
+        font-size: 1.3em;
+    }
+}
+
+@media screen and (max-width: 449px) {
+    h1 {
+        font-size: 1.5em;
+    }
+    h2 {
+        font-size: 1.2em;
+    }
+    .info__value {
+        flex-basis: 100%;
+    }
+}
+
+@media screen and (max-width: 429px) {
+    .btn-block {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: auto;
+    }
+    .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 1px;
+    }
+    .student__title {
+        white-space: initial;
+        max-width: 85px;
+        line-height: initial;
+    }
+    .student__item {
+        white-space: initial;
+        max-width: 85px;
+        line-height: initial;
+    }
+    .avg-grade__title {
+        height: 64px;
+    }
+    .avg-grade__item {
+        height: 46px;
+    }
+    .grade__date {
+        height: 64px;
+    }
+    .grade__item {
+        height: 46px;
+    }
 }
