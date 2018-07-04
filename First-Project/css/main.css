@@ -67,11 +67,11 @@ h1 {
 }
 
 .avg::before {
-    content: "\f05a";
+    content: "\f5a2";
 }
 
 .stud::before {
-    content: "\f183     \f182";
+    content: "\f500";
 }
 
 .table {
@@ -118,6 +118,29 @@ h2 {
 
 .btn--blue {
     background-color: var(--blue);
+}
+
+.add-day,
+.remove-day,
+.update-table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-day::before,
+.remove-day::before {
+    font-family: "Font Awesome\ 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+.add-day::before {
+    content: "\f271";
+}
+
+.remove-day::before {
+    content: "\f272";
 }
 
 

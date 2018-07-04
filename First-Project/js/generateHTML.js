@@ -21,7 +21,6 @@ obj has following syntax: {
 }
 */
 
-
 function generateHTML(obj) {
     let mainNode = document.querySelector(obj.mainSelector);
     let parentNode = document.createElement(obj.parent.element);
@@ -56,4 +55,5 @@ function generateHTML(obj) {
         }
     }
     mainNode.appendChild(parentNode);
+    return obj.parent.index;
 }

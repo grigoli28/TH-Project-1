@@ -7,11 +7,6 @@ getGradeAvg method returns grade average for student;
 */
 
 function Student(name, id) {
-    // if (Student.count == undefined) {
-    //     Student.count = 1;
-    // } else {
-    //     Student.count++;
-    // }
     let ID = id;
 
     this.getID = function() {
