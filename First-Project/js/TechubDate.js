@@ -94,6 +94,6 @@ function Techubdate() {
                 alert(`This month doesn't exist!`);
                 break;
         }
-        return `${day} ${month} ${newDate.getDate()}`;
+        return `${day} ${newDate.getDate()} ${month}`;
     }
 }

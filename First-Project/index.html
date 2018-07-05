@@ -12,7 +12,7 @@
 
 <body>
     <header>
-        <div class="container">
+        <div class="container side-padding">
             <h1>Statistic of Students Results</h1>
             <div class="info">
                 <div class="info__item info__item--days">
@@ -37,55 +37,66 @@
 
 
     <main>
-        <div class="table container">
-
-            <div class="table__head">
-                <h2>Grade Table</h2>
-                <div class="btn-block">
-                    <div id="add-day" class="btn btn--green noselect"><span class="add-day">Add Day</span></div>
-                    <div id="rm-day" class="btn btn--red noselect"><span class="remove-day">Remove Day</span></div>
-                </div>
-            </div>
-
-            <div class="table__body">
-                <div class="students">
-                    <div class="student__title">First & Last Names</div>
-                    <div class="student__item">Grigol Tchkoidze</div>
-                    <div class="student__item">Grigol Tchkoidze</div>
-                    <div class="student__item">Grigol Tchkoidze</div>
-                    <div class="student__item">Grigol Tchkoidze</div>
-                    <div class="student__item">Grigol Tchkoidze</div>
-                    <div class="student__item">Grigol Tchkoidze</div>
-                    <div class="student__item">Grigol Tchkoidze</div>
-                    <div class="student__item">Grigol Tchkoidze</div>
-                    <div class="student__item">Grigol Tchkoidze</div>
-                    <div class="student__item">Grigol Tchkoidze</div>
+        <div class="container side-padding">
+            <div class="table">
+                <div class="table__head">
+                    <h2>Grade Table</h2>
+                    <div class="btn-block">
+                        <div id="add-day" class="btn btn--green noselect"><span class="add-day">Add Day</span></div>
+                        <div id="rm-day" class="btn btn--red noselect"><span class="remove-day">Remove Day</span></div>
+                    </div>
                 </div>
 
-                <div class="avg-grades">
-                    <div id="tot-avg" class="avg-grade__title">Average</div>
-                    <div class="avg-grade__item" id="stud-0">0</div>
-                    <div class="avg-grade__item" id="stud-1">0</div>
-                    <div class="avg-grade__item" id="stud-2">0</div>
-                    <div class="avg-grade__item" id="stud-3">0</div>
-                    <div class="avg-grade__item" id="stud-4">0</div>
-                    <div class="avg-grade__item" id="stud-5">0</div>
-                    <div class="avg-grade__item" id="stud-6">0</div>
-                    <div class="avg-grade__item" id="stud-7">0</div>
-                    <div class="avg-grade__item" id="stud-8">0</div>
-                    <div class="avg-grade__item" id="stud-9">0</div>
+                <div class="table__body">
+                    <div class="students">
+                        <div class="student__title">First & Last Names</div>
+                        <div id="student-0" class="student__item">Grigol Tchkoidze0</div>
+                        <div id="student-1" class="student__item">Grigol Tchkoidze1</div>
+                        <div id="student-2" class="student__item">Grigol Tchkoidze2</div>
+                        <div id="student-3" class="student__item">Grigol Tchkoidze3</div>
+                        <div id="student-4" class="student__item">Grigol Tchkoidze4</div>
+                        <div id="student-5" class="student__item">Grigol Tchkoidze5</div>
+                        <div id="student-6" class="student__item">Grigol Tchkoidze6</div>
+                        <div id="student-7" class="student__item">Grigol Tchkoidze7</div>
+                        <div id="student-8" class="student__item">Grigol Tchkoidze8</div>
+                        <div id="student-9" class="student__item">Grigol Tchkoidze9</div>
+                    </div>
+
+                    <div class="avg-grades">
+                        <div id="tot-avg" class="avg-grade__title">Average</div>
+                        <div class="avg-grade__item" id="stud-0">0</div>
+                        <div class="avg-grade__item" id="stud-1">0</div>
+                        <div class="avg-grade__item" id="stud-2">0</div>
+                        <div class="avg-grade__item" id="stud-3">0</div>
+                        <div class="avg-grade__item" id="stud-4">0</div>
+                        <div class="avg-grade__item" id="stud-5">0</div>
+                        <div class="avg-grade__item" id="stud-6">0</div>
+                        <div class="avg-grade__item" id="stud-7">0</div>
+                        <div class="avg-grade__item" id="stud-8">0</div>
+                        <div class="avg-grade__item" id="stud-9">0</div>
+                    </div>
+                    <div class="grades"></div>
                 </div>
-                <div class="grades"></div>
             </div>
         </div>
     </main>
 
     <footer>
-        <div class="container">
-            Author
-            <br> 2018 &copy; Grigol Tchkoidze
+        <div class="container side-padding">
+            2018 <br> &copy; Grigol Tchkoidze
         </div>
     </footer>
+
+    <div class="prompt hide">
+        <div class="prompt__content">
+            <div class="prompt__message">Please Enter a Number!</div>
+            <input class="prompt__input" type="text">
+            <div class="prompt__buttons">
+                <div id="ok" class="ok btn btn--green">OK</div>
+                <div id="cancel" class="cancel btn btn--red">Cancel</div>
+            </div>
+        </div>
+    </div>
 
     <script src="js/Student.js"></script>
     <script src="js/Techubdate.js"></script>

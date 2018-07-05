@@ -14,11 +14,11 @@ function Student(name, id) {
     }
     let fullName = name;
 
-    this.getName = function() {
-        return fullName;
-    }
     this.setName = function(str) {
         fullName = str;
+    }
+    this.getName = function() {
+        return fullName;
     }
     let grades = [];
 
@@ -42,6 +42,6 @@ function Student(name, id) {
         let gradeSum = grades.reduce((total, currValue) => {
             return total + currValue;
         });
-        return gradeSum / grades.length;
+        return Math.round(gradeSum / grades.length * 10) / 10;
     }
 }

@@ -25,14 +25,15 @@ function updateTotalGradeAvg() {
     for (let student of techubStudents) {
         gradesTotal += student.getGradeAvg();
     }
-    document.querySelector('#avg-grade').textContent = Math.round(gradesTotal / techubStudents.length * 10) / 10;
+    document.querySelector('#avg-grade').textContent =
+        Math.round(gradesTotal / techubStudents.length * 10) / 10;
 }
 
 /* adds prmopt window on each grade box in newly added column*/
 function addPromptWindows() {
     let gradeBoxes = Array.from(document.querySelectorAll('.grade__item'));
     for (let node of gradeBoxes) {
-        node.addEventListener('click', getPrompt); // !!!important (when used arrow function, prompt window appears on other columns more than once after deleting a column)
+        node.addEventListener('click', gradePrompt); // !!!important (when used arrow function, prompt window appears on other columns more than once after deleting a column)
     }
 }
 
@@ -47,23 +48,21 @@ let missedLessons = document.querySelector('#miss-less');
 
 
 
-/* Prompt user for a student's grade */
-function getPrompt() {
-    let studentGrade = prompt("Enter a student's grade");
-    // check if user entered characters or empty string
-    if (isNaN(Number(studentGrade)) || studentGrade == '') {
+function gradePrompt() {
+    let studentGrade = myPrompt("Enter a student's grade");
+    if (isNaN(Number(studentGrade)) || studentGrade == '') { // if user enters an invalid string prompt again
         alert("Error! Please Enter a Number!");
-        return getPrompt.call(this) // call getPrompt again to let user re-enter student's grade
+        return gradePrompt.call(this);
     }
-    if (studentGrade == null) return; // check if user pressed ESC or Cancel
+    if (studentGrade == null) return; // stop if user pressed ESC or Cancel
     studentGrade = Math.round(Number(studentGrade));
-    if (studentGrade < 0) studentGrade = 0; // check if user entered a negative number
-    if (studentGrade > 5) studentGrade = 5; // check if user entered a number larger than 5
-    // studentGrade = validateGrade.call(this, studentGrade); !!!review
+
+    studentGrade = (studentGrade < 0) ? 0 : ((studentGrade > 5) ? 5 : studentGrade); // make sure grade is between 0 and 5;
+
     setGradeAndColor.call(this, studentGrade); // set box color according to grade
 
-    techubStudents[Number(this.dataset.id)].setGrade(studentGrade, Number(this.parentElement.dataset.colIndex));
-
+    techubStudents[Number(this.dataset.id)]
+        .setGrade(studentGrade, Number(this.parentElement.dataset.colIndex));
     if (studentGrade != 0) {
         if (this.dataset.missed == 'true') {
             missedLessons.dataset.count = Number(missedLessons.dataset.count) - 1;
@@ -77,13 +76,14 @@ function getPrompt() {
             this.dataset.missed = true;
         }
     }
-    document.querySelector(`#stud-${this.dataset.id}`).textContent = Math.round(techubStudents[Number(this.dataset.id)].getGradeAvg() * 10) / 10;
+    document.querySelector(`#stud-${this.dataset.id}`).textContent =
+        techubStudents[Number(this.dataset.id)].getGradeAvg();
     updateTotalGradeAvg();
 }
 
 
-/* newColumn is template for new column added by "Add Day" button */
-let newColumn = {
+/* newColumnObj is template for new column added by "Add Day" button */
+let newColumnObj = {
     mainSelector: '.grades',
     parent: {
         element: 'div',
@@ -104,53 +104,10 @@ let newColumn = {
         count: 10,
         content: '0',
         attributes: {
-            'class': 'grade__item'
+            'class': 'grade__item',
+            'data-missed': 'true'
         }
     }
-}
-
-
-
-let totalDays = document.querySelector('#tot-days');
-
-function createNewDay() {
-    newColumn.firstChild.content = new Techubdate().getFullDate(); // to create new Techubdate every time user adds new day
-    generateHTML(newColumn);
-    newColumn.parent.index += 1;
-    totalDays.dataset.count = Number(totalDays.dataset.count) + 1;
-    totalDays.textContent = totalDays.dataset.count;
-
-    missedLessons.dataset.count = Number(missedLessons.dataset.count) + techubStudents.length;
-    missedLessons.textContent = missedLessons.dataset.count;
-
-    for (let student of techubStudents) {
-        student.pushGrade(0);
-        document.querySelector(`#stud-${student.getID()}`).textContent = Math.round(student.getGradeAvg() * 10) / 10;
-    }
-    updateTotalGradeAvg();
-}
-
-let gradeTable = document.querySelector('.grades'); // gets grade table reference node
-
-/* removeLastDay removes last added day from table */
-function removeLastDay() {
-    Techubdate.resetToPrevDate();
-    newColumn.parent.index -= 1;
-    if (gradeTable.lastChild != null) {
-        for (let item of gradeTable.lastChild.children)
-            if (item.dataset.missed == "true") missedLessons.dataset.count = Number(missedLessons.dataset.count) - 1;
-        missedLessons.textContent = missedLessons.dataset.count;
-        gradeTable.removeChild(gradeTable.lastChild); // removes last column (day) from grade table
-    }
-    if (totalDays.dataset.count != '0') {
-        totalDays.dataset.count = Number(totalDays.dataset.count) - 1;
-        totalDays.textContent = totalDays.dataset.count;
-    }
-    for (let student of techubStudents) {
-        student.popGrade();
-        document.querySelector(`#stud-${student.getID()}`).textContent = Math.round(student.getGradeAvg() * 10) / 10;
-    }
-    updateTotalGradeAvg();
 }
 
 
@@ -163,38 +120,70 @@ addDayBtn.addEventListener('click', addPromptWindows);
 let removeDayBtn = document.querySelector("#rm-day");
 removeDayBtn.addEventListener('click', removeLastDay);
 
+let totalDays = document.querySelector('#tot-days'); // gets total days box reference node
 
-// for (let i =0; i < 7;i++){
-//     console.log(new Techubdate().getFullDate())
-// }
+function createNewDay() {
+    newColumnObj.firstChild.content = new Techubdate().getFullDate(); // to create new Techubdate every time user adds new day
+    generateHTML(newColumnObj);
+    newColumnObj.parent.index += 1;
+
+    totalDays.dataset.count = Number(totalDays.dataset.count) + 1;
+    totalDays.textContent = totalDays.dataset.count;
+
+    missedLessons.dataset.count = Number(missedLessons.dataset.count) + techubStudents.length;
+    missedLessons.textContent = missedLessons.dataset.count;
+
+    for (let student of techubStudents) {
+        student.pushGrade(0);
+        document.querySelector(`#stud-${student.getID()}`).textContent =
+            student.getGradeAvg();
+    }
+    updateTotalGradeAvg();
+}
 
 
+let gradeTable = document.querySelector('.grades'); // gets grade table reference node
 
-//#region 
-// let startingDate = new Date(Date.UTC(2018, 3, 30));
-// let startingDate2 = new Date(2018, 3, 30);
-// console.log(startingDate);
-// console.log(startingDate2);
-// console.log(startingDate.getHours());
-// console.log(startingDate2.getHours());
-// console.log(startingDate.getDate());
-// console.log(startingDate2.getDate());
-// console.log(Date());
-//#endregion
+function removeLastDay() {
+    Techubdate.resetToPrevDate();
+    if (newColumnObj.parent.index > 0)
+        newColumnObj.parent.index -= 1;
+    if (gradeTable.lastChild != null) {
+        for (let item of gradeTable.lastChild.children)
+            if (item.dataset.missed == "true")
+                missedLessons.dataset.count = Number(missedLessons.dataset.count) - 1;
+        missedLessons.textContent = missedLessons.dataset.count;
+        gradeTable.removeChild(gradeTable.lastChild); // removes last column (day) from grade table
+    }
+    if (totalDays.dataset.count != '0') {
+        totalDays.dataset.count = Number(totalDays.dataset.count) - 1;
+        totalDays.textContent = totalDays.dataset.count;
+    }
+    for (let student of techubStudents) {
+        student.popGrade();
+        document.querySelector(`#stud-${student.getID()}`).textContent =
+            student.getGradeAvg();
+    }
+    updateTotalGradeAvg();
+}
 
-// #region
-// function validateGrade(grade) { !!! review
-//     if (isNaN(Number(grade)) || grade == '') { // if user enters characters or empty string
-//         alert("Error Please Try Again!");
-//         return getPrompt.call(this); // call getPrompt function again for the current object
-//     }
-//     if (grade == null) {
-//         alert("You Canceled!");
-//         return 0;
-//     }
-//     grade = Math.round(Number(grade));
-//     if (grade < 0) grade = 0;
-//     if (grade > 5) grade = 5;
-//     return grade;
-// }
-// #endregion
+function hide() {
+    promptWindow.classList.add('hide');
+}
+let promptWindow = document.querySelector('.prompt');
+
+let promptOk = document.querySelector('#ok');
+
+let promptCancel = document.querySelector('#cancel');
+
+promptOk.addEventListener('click', hide)
+promptCancel.addEventListener('click', hide);
+
+
+function myPrompt(message) {
+    promptWindow.classList.remove('hide');
+    let promptMessage = document.querySelector('.prompt__message');
+    promptMessage.innerHTML = `<b>${message}</b>`;
+    let input = document.querySelector('.prompt__input');
+    return input.value;
+}
