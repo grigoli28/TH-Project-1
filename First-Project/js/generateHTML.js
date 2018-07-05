@@ -28,7 +28,7 @@ function generateHTML(obj) {
         parentNode.setAttribute(key, obj.parent.attributes[key]);
     }
     if (obj.parent.index != undefined) parentNode.setAttribute('data-col-index', `${obj.parent.index}`);
-    obj.parent.index++; // !!!review
+    // obj.parent.index++; // !!!review
     if (obj.parent.content) {
         parentNode.appendChild(document.createTextNode(obj.parent.content));
     }

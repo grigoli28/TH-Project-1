@@ -120,13 +120,8 @@ h2 {
     background-color: var(--orange);
 }
 
-.btn--blue {
-    background-color: var(--blue);
-}
-
 .add-day,
-.remove-day,
-.update-table {
+.remove-day {
     display: flex;
     justify-content: center;
     align-items: center;

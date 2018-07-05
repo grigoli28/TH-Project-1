@@ -1,20 +1,30 @@
-function TechubDate() {
+function Techubdate() {
     let startDate = new Date(2018, 3, 28);
-    if (TechubDate.counter == undefined) {
-        TechubDate.counter = 1;
-        TechubDate.prevDate = startDate;
+    if (Techubdate.counter == undefined) {
+        Techubdate.counter = 1;
+        Techubdate.prevDate = startDate;
     } else {
-        TechubDate.counter += 1;
+        Techubdate.counter += 1;
     }
     let newDate;
 
-    if (TechubDate.counter % 4 == 0) {
-        newDate = new Date(TechubDate.prevDate.getFullYear(), TechubDate.prevDate.getMonth(), TechubDate.prevDate.getDate() + 1);
+    if (Techubdate.counter % 4 == 0) {
+        newDate = new Date(Techubdate.prevDate.getFullYear(), Techubdate.prevDate.getMonth(), Techubdate.prevDate.getDate() + 1);
     } else {
-        newDate = new Date(TechubDate.prevDate.getFullYear(), TechubDate.prevDate.getMonth(), TechubDate.prevDate.getDate() + 2);
+        newDate = new Date(Techubdate.prevDate.getFullYear(), Techubdate.prevDate.getMonth(), Techubdate.prevDate.getDate() + 2);
     }
-    TechubDate.prevDate = newDate;
+    Techubdate.prevDate = newDate;
 
+    Techubdate.resetToPrevDate = function() {
+        if (Techubdate.prevDate - startDate != 0) {
+            if (Techubdate.counter % 4 == 0) {
+                Techubdate.prevDate = new Date(Techubdate.prevDate.getFullYear(), Techubdate.prevDate.getMonth(), Techubdate.prevDate.getDate() - 1);
+            } else {
+                Techubdate.prevDate = new Date(Techubdate.prevDate.getFullYear(), Techubdate.prevDate.getMonth(), Techubdate.prevDate.getDate() - 2);
+            }
+            Techubdate.counter -= 1;
+        }
+    }
     this.getFullDate = function() {
         let day, month;
         switch (newDate.getDay()) {

@@ -52,7 +52,7 @@ function getPrompt() {
     let studentGrade = prompt("Enter a student's grade");
     // check if user entered characters or empty string
     if (isNaN(Number(studentGrade)) || studentGrade == '') {
-        alert("Error Please Try Again!");
+        alert("Error! Please Enter a Number!");
         return getPrompt.call(this) // call getPrompt again to let user re-enter student's grade
     }
     if (studentGrade == null) return; // check if user pressed ESC or Cancel
@@ -81,6 +81,7 @@ function getPrompt() {
     updateTotalGradeAvg();
 }
 
+
 /* newColumn is template for new column added by "Add Day" button */
 let newColumn = {
     mainSelector: '.grades',
@@ -93,7 +94,7 @@ let newColumn = {
     },
     firstChild: {
         element: 'div',
-        content: `${new Date().getSeconds()}`,
+        content: '',
         attributes: {
             'class': 'grade__date'
         }
@@ -109,10 +110,13 @@ let newColumn = {
 }
 
 
+
 let totalDays = document.querySelector('#tot-days');
 
 function createNewDay() {
+    newColumn.firstChild.content = new Techubdate().getFullDate(); // to create new Techubdate every time user adds new day
     generateHTML(newColumn);
+    newColumn.parent.index += 1;
     totalDays.dataset.count = Number(totalDays.dataset.count) + 1;
     totalDays.textContent = totalDays.dataset.count;
 
@@ -130,6 +134,8 @@ let gradeTable = document.querySelector('.grades'); // gets grade table referenc
 
 /* removeLastDay removes last added day from table */
 function removeLastDay() {
+    Techubdate.resetToPrevDate();
+    newColumn.parent.index -= 1;
     if (gradeTable.lastChild != null) {
         for (let item of gradeTable.lastChild.children)
             if (item.dataset.missed == "true") missedLessons.dataset.count = Number(missedLessons.dataset.count) - 1;
@@ -157,13 +163,10 @@ addDayBtn.addEventListener('click', addPromptWindows);
 let removeDayBtn = document.querySelector("#rm-day");
 removeDayBtn.addEventListener('click', removeLastDay);
 
-// Add event on mouse click to update table and statistic info // to be !!!removed
-let updateTableBtn = document.querySelector("#upd-tb");
-updateTableBtn.addEventListener('click', () => alert('Test'));
 
-for (let i =0; i < 7;i++){
-    console.log(new TechubDate().getFullDate())
-}
+// for (let i =0; i < 7;i++){
+//     console.log(new Techubdate().getFullDate())
+// }
 
 
 
