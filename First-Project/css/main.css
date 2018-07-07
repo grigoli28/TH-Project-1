@@ -315,6 +315,91 @@ footer {
     text-align: center;
 }
 
+
+/* Prompt window */
+
+.prompt {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    color: white;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+    animation: .01s linear popAnim;
+}
+
+.prompt__content {
+    position: relative;
+    width: 250px;
+    padding: 5px 30px;
+    background-color: var(--teal);
+    border-radius: 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -120%);
+}
+
+.prompt__message {
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.prompt__input {
+    width: 100%;
+}
+
+.prompt__popup {
+    display: none;
+    width: calc(100% - 60px);
+    position: absolute;
+    text-align: center;
+    background-color: var(--red);
+    line-height: 1.5;
+    border-radius: 5px;
+    top: 8%;
+    left: 50%;
+    transform: translate(-50%);
+    animation: .2s ease-in-out popAnim;
+}
+
+@keyframes popAnim {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.prompt__popup::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--red) transparent transparent transparent;
+}
+
+.prompt__buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.ok {
+    margin-right: 10px;
+}
+
+.show {
+    display: initial;
+}
+
 @media screen and (max-width: 699px) {
     .info__value {
         flex-basis: 100%;
@@ -376,52 +461,4 @@ footer {
     .grade__item {
         height: 46px;
     }
-}
-
-.prompt {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    color: white;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    background-color: rgba(0, 0, 0, .6);
-    transition: all .001s linear;
-}
-
-.prompt__content {
-    position: absolute;
-    width: 250px;
-    padding: 5px 30px;
-    background-color: var(--teal);
-    border-radius: 5px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -120%);
-}
-
-.prompt__message {
-    padding: 10px;
-    text-align: center;
-}
-
-.prompt__input {
-    width: 100%;
-}
-
-.prompt__buttons {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 20px 0;
-}
-
-.hide {
-    background-color: rgba(0, 0, 0, 0);
-    z-index: -1;
-}
-
-.ok {
-    margin-right: 10px;
 }

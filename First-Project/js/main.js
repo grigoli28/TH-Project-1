@@ -49,16 +49,17 @@ let missedLessons = document.querySelector('#miss-less');
 
 
 function gradePrompt() {
-    let studentGrade = myPrompt("Enter a student's grade");
-    if (isNaN(Number(studentGrade)) || studentGrade == '') { // if user enters an invalid string prompt again
-        alert("Error! Please Enter a Number!");
-        return gradePrompt.call(this);
-    }
-    if (studentGrade == null) return; // stop if user pressed ESC or Cancel
-    studentGrade = Math.round(Number(studentGrade));
+    let studentGrade = myPrompt("Enter a Student's Grade");
+    // if (isNaN(Number(studentGrade)) || studentGrade == '') { // if user enters an invalid string prompt again
+    //     alert("Error! Please Enter a Number!");
+    //     return gradePrompt.call(this);
+    // }
+    // if (studentGrade == null) return; // stop if user pressed ESC or Cancel
+    // studentGrade = Math.round(Number(studentGrade));
 
-    studentGrade = (studentGrade < 0) ? 0 : ((studentGrade > 5) ? 5 : studentGrade); // make sure grade is between 0 and 5;
+    // studentGrade = (studentGrade < 0) ? 0 : ((studentGrade > 5) ? 5 : studentGrade); // make sure grade is between 0 and 5;
 
+    debugger;
     setGradeAndColor.call(this, studentGrade); // set box color according to grade
 
     techubStudents[Number(this.dataset.id)]
@@ -80,6 +81,61 @@ function gradePrompt() {
         techubStudents[Number(this.dataset.id)].getGradeAvg();
     updateTotalGradeAvg();
 }
+
+
+
+let promptWindow = document.querySelector('.prompt');
+
+
+let promptOk = document.querySelector('#ok');
+let promptCancel = document.querySelector('#cancel');
+promptOk.addEventListener('click', hide)
+promptCancel.addEventListener('click', hide);
+let promptButtons = document.querySelector('.prompt__buttons');
+
+let promptContent = document.querySelector('.prompt__content');
+
+
+
+function myPrompt(message) {
+    let input = document.querySelector('.prompt__input');
+    input.value = '';
+
+    promptWindow.classList.add('show');
+    input.focus();
+
+    let promptMessage = document.querySelector('.prompt__message');
+    promptMessage.innerHTML = message;
+
+    let checked;
+    input.addEventListener('input', function() {
+        checked = checkString(input.value);
+        checked = checked;
+    });
+    return checked;
+}
+
+function checkString(val) {
+    let popup = document.querySelector('.prompt__popup');
+    if (isNaN(Number(val))) {
+        popup.classList.add('show');
+        return;
+    }
+    popup.classList.remove('show');
+    if (val == null) return;
+    val = Math.round(Number(val));
+    val = (val < 0) ? 0 : ((val > 5) ? 5 : val); // make sure grade is between 0 and 5;
+    return val;
+}
+
+
+function hide() {
+    promptWindow.classList.remove('show');
+}
+
+
+
+
 
 
 /* newColumnObj is template for new column added by "Add Day" button */
@@ -165,25 +221,4 @@ function removeLastDay() {
             student.getGradeAvg();
     }
     updateTotalGradeAvg();
-}
-
-function hide() {
-    promptWindow.classList.add('hide');
-}
-let promptWindow = document.querySelector('.prompt');
-
-let promptOk = document.querySelector('#ok');
-
-let promptCancel = document.querySelector('#cancel');
-
-promptOk.addEventListener('click', hide)
-promptCancel.addEventListener('click', hide);
-
-
-function myPrompt(message) {
-    promptWindow.classList.remove('hide');
-    let promptMessage = document.querySelector('.prompt__message');
-    promptMessage.innerHTML = `<b>${message}</b>`;
-    let input = document.querySelector('.prompt__input');
-    return input.value;
 }
