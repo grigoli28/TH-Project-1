@@ -392,12 +392,16 @@ footer {
     padding: 20px 0;
 }
 
-.ok {
+.btn--ok {
     margin-right: 10px;
 }
 
 .show {
     display: initial;
+}
+
+.hide {
+    display: none;
 }
 
 @media screen and (max-width: 699px) {
