@@ -365,6 +365,15 @@ footer {
     animation: .2s ease-in-out popAnim;
 }
 
+@keyframes animate {
+    0% {
+        transform: scale(1.1, 1.1);
+    }
+    100% {
+        transform: scale(1.5, 1.5);
+    }
+}
+
 @keyframes popAnim {
     0% {
         opacity: 0;
@@ -402,6 +411,10 @@ footer {
 
 .hide {
     display: none;
+}
+
+.animator {
+    animation: .2s ease-in-out animate;
 }
 
 @media screen and (max-width: 699px) {

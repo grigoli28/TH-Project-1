@@ -49,15 +49,20 @@ let missedLessons = document.querySelector('#miss-less');
 
 
 function gradePrompt() {
-    let studentGrade = myPrompt("Enter a Student's Grade");
+    // let studentGrade = myPrompt("Enter a Student's Grade");
+    myPrompt("Enter a Student's Grade");
+    let studentGrade;
+    if (validateString(input.value)) {
+        studentGrade = Math.round(Number(studentGrade));
+        studentGrade = (studentGrade < 0) ? 0 : ((studentGrade > 5) ? 5 : studentGrade); // make sure grade is between 0 and 5;
+        debugger;
+        alert(studentGrade);
+    }
     // if (isNaN(Number(studentGrade)) || studentGrade == '') { // if user enters an invalid string prompt again
     //     alert("Error! Please Enter a Number!");
     //     return gradePrompt.call(this);
     // }
     // if (studentGrade == null) return; // stop if user pressed ESC or Cancel
-    // studentGrade = Math.round(Number(studentGrade));
-
-    // studentGrade = (studentGrade < 0) ? 0 : ((studentGrade > 5) ? 5 : studentGrade); // make sure grade is between 0 and 5;
 
     debugger;
     setGradeAndColor.call(this, studentGrade); // set box color according to grade
@@ -86,50 +91,52 @@ function gradePrompt() {
 
 let promptWindow = document.querySelector('.prompt');
 
-
 let promptOk = document.querySelector('#ok');
+
 let promptCancel = document.querySelector('#cancel');
-promptOk.addEventListener('click', hide)
-promptCancel.addEventListener('click', hide);
+
+// promptOk.addEventListener('click', hide);
+
+promptCancel.addEventListener('click', hidePrompt);
+
 let promptButtons = document.querySelector('.prompt__buttons');
 
 let promptContent = document.querySelector('.prompt__content');
 
+let input = document.querySelector('.prompt__input');
 
 
 function myPrompt(message) {
-    let input = document.querySelector('.prompt__input');
     input.value = '';
 
-    promptWindow.classList.add('show');
+    promptWindow.classList.add('show'); // display prompt
     input.focus();
 
-    let promptMessage = document.querySelector('.prompt__message');
+    let promptMessage = document.querySelector('.prompt__message'); // Insert message
     promptMessage.innerHTML = message;
 
-    let checked;
-    input.addEventListener('input', function() {
-        checked = checkString(input.value);
-        checked = checked;
-    });
-    return checked;
+    input.addEventListener('input', ({ target }) => validateString(target.value));
 }
 
-function checkString(val) {
+promptOk.addEventListener('click', () => {
+    if (validateString(input.value))
+        hidePrompt();
+})
+
+
+function validateString(val) {
     let popup = document.querySelector('.prompt__popup');
     if (isNaN(Number(val))) {
         popup.classList.add('show');
-        return;
+        return false;
     }
     popup.classList.remove('show');
-    if (val == null) return;
-    val = Math.round(Number(val));
-    val = (val < 0) ? 0 : ((val > 5) ? 5 : val); // make sure grade is between 0 and 5;
-    return val;
+    if (val == '') return false;
+    return true;
 }
 
 
-function hide() {
+function hidePrompt() {
     promptWindow.classList.remove('show');
 }
 
@@ -162,7 +169,8 @@ let newColumnObj = {
         attributes: {
             'class': 'grade__item',
             'data-missed': 'true'
-        }
+        },
+        uniqueIDs: true
     }
 }
 
@@ -179,6 +187,10 @@ removeDayBtn.addEventListener('click', removeLastDay);
 let totalDays = document.querySelector('#tot-days'); // gets total days box reference node
 
 function createNewDay() {
+    totalDays.classList.toggle('animator');
+    missedLessons.classList.toggle('animator');
+    if (gradeTable.children.length == 0) removeDayBtn.classList.toggle('hide');
+
     newColumnObj.firstChild.content = new Techubdate().getFullDate(); // to create new Techubdate every time user adds new day
     generateHTML(newColumnObj);
     newColumnObj.parent.index += 1;
@@ -195,30 +207,41 @@ function createNewDay() {
             student.getGradeAvg();
     }
     updateTotalGradeAvg();
+    setTimeout(() => {
+        totalDays.classList.toggle('animator');
+        missedLessons.classList.toggle('animator');
+    }, 150);
 }
 
 
 let gradeTable = document.querySelector('.grades'); // gets grade table reference node
 
 function removeLastDay() {
+    totalDays.classList.toggle('animator');
+    missedLessons.classList.toggle('animator');
     Techubdate.resetToPrevDate();
-    if (newColumnObj.parent.index > 0)
-        newColumnObj.parent.index -= 1;
-    if (gradeTable.lastChild != null) {
-        for (let item of gradeTable.lastChild.children)
-            if (item.dataset.missed == "true")
-                missedLessons.dataset.count = Number(missedLessons.dataset.count) - 1;
-        missedLessons.textContent = missedLessons.dataset.count;
-        gradeTable.removeChild(gradeTable.lastChild); // removes last column (day) from grade table
-    }
-    if (totalDays.dataset.count != '0') {
-        totalDays.dataset.count = Number(totalDays.dataset.count) - 1;
-        totalDays.textContent = totalDays.dataset.count;
-    }
+    newColumnObj.parent.index -= 1;
+
+    for (let item of gradeTable.lastChild.children)
+        if (item.dataset.missed == "true")
+            missedLessons.dataset.count = Number(missedLessons.dataset.count) - 1;
+    missedLessons.textContent = missedLessons.dataset.count;
+
+    gradeTable.removeChild(gradeTable.lastChild); // removes last column (day) from grade table
+
+    if (gradeTable.children.length == 0) removeDayBtn.classList.toggle('hide');
+
+    totalDays.dataset.count = Number(totalDays.dataset.count) - 1;
+    totalDays.textContent = totalDays.dataset.count;
+
     for (let student of techubStudents) {
         student.popGrade();
         document.querySelector(`#stud-${student.getID()}`).textContent =
             student.getGradeAvg();
     }
     updateTotalGradeAvg();
+    setTimeout(() => {
+        totalDays.classList.toggle('animator');
+        missedLessons.classList.toggle('animator');
+    }, 150);
 }
