@@ -1,6 +1,4 @@
-'use strict';
-
-/* Student() is a constructor for a student object, with property of full name and methods: addGrade, removeLastGrade, getGradeAvg;
+/* Student() is a constructor for a student object, with property of full name and methods: getID, setName, getName, setGrade, pushGrade, popGrade, getGradeAvg;
 addGrade method adds student's grade into array;
 removeLastGrade method removes student's last added grade from array;
 getGradeAvg method returns grade average for student;
@@ -25,7 +23,6 @@ function Student(name, id) {
     this.setGrade = function(grade, index) {
         grades[index] = grade;
     }
-
     this.pushGrade = function(grade) {
         grades.push(grade);
         return this;
@@ -33,9 +30,6 @@ function Student(name, id) {
     this.popGrade = function() {
         grades.pop();
         return this;
-    }
-    this.getGrades = function() { // to be !!!removed
-        return grades;
     }
     this.getGradeAvg = function() {
         if (grades.length == 0) return 0;

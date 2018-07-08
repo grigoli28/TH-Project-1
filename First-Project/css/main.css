@@ -330,7 +330,7 @@ footer {
     animation: .01s linear popAnim;
 }
 
-.prompt__content {
+.prompt__window {
     position: relative;
     width: 250px;
     padding: 5px 30px;
@@ -349,6 +349,12 @@ footer {
 
 .prompt__input {
     width: 100%;
+    padding: 3px;
+}
+
+.prompt__input:focus {
+    border: 1px solid var(--black-pearl);
+    border-radius: 2px;
 }
 
 .prompt__popup {
@@ -363,15 +369,6 @@ footer {
     left: 50%;
     transform: translate(-50%);
     animation: .2s ease-in-out popAnim;
-}
-
-@keyframes animate {
-    0% {
-        transform: scale(1.1, 1.1);
-    }
-    100% {
-        transform: scale(1.5, 1.5);
-    }
 }
 
 @keyframes popAnim {
@@ -417,6 +414,12 @@ footer {
     animation: .2s ease-in-out animate;
 }
 
+@keyframes animate {
+    100% {
+        transform: scale(1.4, 1.4);
+    }
+}
+
 @media screen and (max-width: 699px) {
     .info__value {
         flex-basis: 100%;
@@ -451,29 +454,28 @@ footer {
         grid-auto-rows: auto;
     }
     .btn {
-        display: flex;
         justify-content: center;
         align-items: center;
         margin: 1px;
     }
     .student__title {
         white-space: initial;
-        max-width: 85px;
+        max-width: 100px;
         line-height: initial;
     }
     .student__item {
         white-space: initial;
-        max-width: 85px;
+        max-width: 100px;
         line-height: initial;
     }
     .avg-grade__title {
-        height: 64px;
+        height: 46px;
     }
     .avg-grade__item {
         height: 46px;
     }
     .grade__date {
-        height: 64px;
+        height: 46px;
     }
     .grade__item {
         height: 46px;

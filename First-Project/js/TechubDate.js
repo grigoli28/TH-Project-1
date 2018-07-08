@@ -1,24 +1,30 @@
 function Techubdate() {
     let startDate = new Date(2018, 3, 28);
+    // Enable counter for every new date object created
     if (Techubdate.counter == undefined) {
         Techubdate.counter = 1;
+        // for the very first object, set its previous date to startDate
         Techubdate.prevDate = startDate;
     } else Techubdate.counter += 1;
 
     let newDate;
 
     if (Techubdate.counter % 4 == 0)
+    // for every new 4th object created, increase date by one, otherwise increase date by two
         newDate = new Date(Techubdate.prevDate.getFullYear(),
-            Techubdate.prevDate.getMonth(),
-            Techubdate.prevDate.getDate() + 1);
+        Techubdate.prevDate.getMonth(),
+        Techubdate.prevDate.getDate() + 1);
     else {
         newDate = new Date(Techubdate.prevDate.getFullYear(),
             Techubdate.prevDate.getMonth(),
             Techubdate.prevDate.getDate() + 2);
     }
+    // remember new date as previous for a next new object that will be created
     Techubdate.prevDate = newDate;
 
+    // reset date to a previous one
     Techubdate.resetToPrevDate = function() {
+        // if this date was 4th one, reset it by one, otherwise reset it by two
         if (Techubdate.prevDate - startDate != 0) {
             if (Techubdate.counter % 4 == 0) {
                 Techubdate.prevDate = new Date(Techubdate.prevDate.getFullYear(),
@@ -32,6 +38,7 @@ function Techubdate() {
             Techubdate.counter -= 1;
         }
     }
+    // get full date as string
     this.getFullDate = function() {
         let day, month;
         switch (newDate.getDay()) {
