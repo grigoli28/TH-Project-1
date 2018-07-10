@@ -1,6 +1,5 @@
 'use strict';
 
-/* Application is designed to work for maximum of 10 students */
 
 let studentNames = [
     'Jano Bokuchava',
@@ -12,8 +11,7 @@ let studentNames = [
     'Temo Kiknadze',
     'Dea Samniashvili',
     'Nikoloz Asatiani',
-    'Nino Grigalashvili',
-    'Grfsfds'
+    'Nino Grigalashvili'
 ];
 
 let techubStudents = [];
@@ -41,15 +39,15 @@ totalTechubStudents.textContent = totalTechubStudents.dataset.count;
 let options = { childList: true };
 
 // create mutation observers to watch and animate elements on change
-let daysObserver = new MutationObserver(mutationCallback),
-    lessonsObserver = new MutationObserver(mutationCallback),
-    gradesObserver = new MutationObserver(mutationCallback);
+let daysObserver = new MutationObserver(mutationCB),
+    lessonsObserver = new MutationObserver(mutationCB),
+    gradesObserver = new MutationObserver(mutationCB);
 
 daysObserver.observe(totalDays, options);
 lessonsObserver.observe(missedLessons, options);
 gradesObserver.observe(totalGrade, options);
 
-function mutationCallback([{ target }]) {
+function mutationCB([{ target }]) {
     target.classList.toggle('animator');
     // remove class after a while so that elements animate on every change when class is added again
     setTimeout(() => {
@@ -60,6 +58,8 @@ function mutationCallback([{ target }]) {
 
 /* ==================== Prompt on mouse click section ==================== */
 
+const enterKeyCode = 13;
+const escKeyCode = 27;
 
 let promptBackgr = document.querySelector('.prompt'),
     promptMessage = document.querySelector('.prompt__message'),
@@ -68,76 +68,56 @@ let promptBackgr = document.querySelector('.prompt'),
     promptCancel = document.querySelector('#cancel');
 
 
-// make a custom prompt window
 function customPrompt(message) {
     promptInput.value = ''; // reset input value to an empty string
     promptBackgr.classList.add('show'); // display prompt window
     promptInput.focus(); // auto focus input when prompt is shown
     promptMessage.innerHTML = message; // insert given message
-
-    // show popup to users if they enter invalid string
-    promptInput.addEventListener('input', () => validateString(promptInput.value));
-
-    // add Enter and ESC key listeners, so input cancels on ESC and continues on EnterF
-    promptInput.addEventListener('keyup', inputCB);
-    promptOk.addEventListener('click', okCB); // continue when OK button is pressed
-    promptCancel.addEventListener('click', cancelCB); // cancel when Cancel button is pressed
-    let promptObj = this; // save 'this' object, so we can pass it to other functions
+    promptInput.oninput = () => validateString(promptInput.value); // show popup to users if they enter invalid string
+    promptInput.onkeyup = inputCB; // allow user to use ESC and Enter on input
+    promptOk.onclick = okCB; // continue when OK button is pressed
+    promptCancel.onclick = () => hidePrompt(); // cancel when Cancel button is pressed
+    let self = this;
 
     function okCB() {
-        // continue ONLY if entered string is valid
-        if (validateString(promptInput.value)) {
-            editGrade.call(promptObj, promptInput.value); // insert given grade in grade table
+        if (validateString(promptInput.value)) { // continue ONLY if entered string is valid
+            editGrade.call(self, promptInput.value); // insert given grade in grade table
             hidePrompt();
-            removeAllEvents();
         }
     }
 
     function inputCB(event) {
-        // if Enter was pressed
-        if (event.keyCode == 13) okCB();
-        // if ESC was pressed
-        if (event.keyCode == 27) {
+        if (event.keyCode == enterKeyCode) // if Enter was pressed
+            okCB();
+        if (event.keyCode == escKeyCode) // if ESC was pressed
             hidePrompt();
-            removeAllEvents();
-        }
-    }
-
-    function cancelCB() {
-        hidePrompt();
-        removeAllEvents();
-    }
-    // remove event listeners on OK, Cancel and Input, so we don't have exact same listeners on elements
-    function removeAllEvents() {
-        promptInput.removeEventListener('keyup', inputCB);
-        promptOk.removeEventListener('click', okCB);
-        promptCancel.removeEventListener('click', cancelCB);
     }
 }
+
 
 function validateString(val) {
     let invalidNumPopup = document.querySelector('.prompt__popup'); // popup when string is invalid
     let emptyStringPopup = document.querySelector('.prompt__popup--empty'); // popup when input is empty
-    // if input is empty
-    if (val == '') {
+
+    if (val == '') { // if input is empty
         emptyStringPopup.classList.add('show');
         return false;
     }
-    // remove popup if user entered a number
-    emptyStringPopup.classList.remove('show');
-    // if entered string is invalid
-    if (isNaN(Number(val))) {
+    emptyStringPopup.classList.remove('show'); // remove popup if user entered a number
+
+    if (isNaN(Number(val))) { // if entered string is invalid
         invalidNumPopup.classList.add('show');
         return false;
     }
-    // remove popup if string is valid
-    invalidNumPopup.classList.remove('show');
+    invalidNumPopup.classList.remove('show'); // remove popup if string is valid
     return true;
 }
+
 
 function hidePrompt() {
     promptBackgr.classList.remove('show');
 }
+
 
 function editGrade(studentGrade) {
     studentGrade = Math.round(Number(studentGrade)); // round student's grade
@@ -194,12 +174,12 @@ let newColumnObj = {
     otherChilds: {
         element: 'div',
         count: 10,
+        IDs: true,
         content: '0',
         attributes: {
             'class': 'grade__item',
             'data-missed': 'true'
-        },
-        uniqueIDs: true
+        }
     }
 }
 
@@ -209,23 +189,27 @@ let addDayBtn = document.querySelector("#add-day");
 addDayBtn.addEventListener('click', createNewDay);
 addDayBtn.addEventListener('click', addPromptWindows);
 
+
 /* adds prmopt window on each grade box in newly added column*/
 function addPromptWindows() {
     let gradeBoxes = Array.from(document.querySelectorAll('.grade__item'));
     for (let node of gradeBoxes) {
-        node.addEventListener('click', promptCallB);
+        node.addEventListener('click', promptCB);
     }
 }
 
-function promptCallB({ target }) {
+
+function promptCB({ target }) {
     customPrompt.call(target, "Enter a Student's Grade");
 }
+
 
 // Add event on mouse click to remove last day from table
 let removeDayBtn = document.querySelector("#rm-day");
 removeDayBtn.addEventListener('click', removeLastDay);
 
 let gradeTable = document.querySelector('.grades'); // gets grade table reference node
+
 
 function createNewDay() {
     // if remove button was hidden, display it
@@ -258,6 +242,8 @@ function removeLastDay() {
     Techubdate.resetToPrevDate(); // reset date by to a previous one
     newColumnObj.parent.index -= 1; // decrease column index count
 
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // it has symbol.iterator but still gives error in microsoft edge !!!review
     // count how many missed lessons was on that day and decrease missed lessons number accordingly
     for (let item of gradeTable.lastChild.children)
         if (item.dataset.missed == "true")
@@ -280,6 +266,7 @@ function removeLastDay() {
     }
     updateTotalGradeAvg();
 }
+
 
 function updateTotalGradeAvg() {
     let gradesTotal = 0;

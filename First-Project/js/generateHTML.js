@@ -11,7 +11,7 @@ object has following syntax: {
         attributes (optional) { nameValuePair1, nameValuePair2, ... nameValuePairN }
     },
     otherChilds (optional) {
-        element (optional), count (optional), content (optional),
+        element (optional), count (optional), IDs (optional), content (optional),
         attributes (optional) { nameValuePair1, nameValuePair2, ... nameValuePairN }
     }
 }
@@ -46,7 +46,7 @@ function generateHTML({ mainSelector, parent, firstChild, otherChilds }) {
             let childNode = document.createElement(otherChilds.element);
             for (let key in otherChilds.attributes) {
                 childNode.setAttribute(key, otherChilds.attributes[key]);
-                if (otherChilds.uniqueIDs)
+                if (otherChilds.IDs)
                 // give each element unique id, for accessing them in the future
                     childNode.setAttribute('data-id', `${i}`);
             }

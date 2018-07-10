@@ -1,10 +1,11 @@
+/* Techubdate() is a date constructor according to TechHub's curriculum */
+
 function Techubdate() {
-    let startDate = new Date(2018, 3, 28);
-    // Enable counter for every new date object created
-    if (Techubdate.counter == undefined) {
+    let startDate = new Date(2018, 3, 28); // we set start from 28 April so that first created date will be 30 April
+
+    if (Techubdate.counter == undefined) { // Enable counter for every new date object created
         Techubdate.counter = 1;
-        // for the very first object, set its previous date to startDate
-        Techubdate.prevDate = startDate;
+        Techubdate.prevDate = startDate; // for the very first object, set its previous date to startDate
     } else Techubdate.counter += 1;
 
     let newDate;
@@ -14,11 +15,11 @@ function Techubdate() {
         newDate = new Date(Techubdate.prevDate.getFullYear(),
         Techubdate.prevDate.getMonth(),
         Techubdate.prevDate.getDate() + 1);
-    else {
+    else
         newDate = new Date(Techubdate.prevDate.getFullYear(),
             Techubdate.prevDate.getMonth(),
             Techubdate.prevDate.getDate() + 2);
-    }
+
     // remember new date as previous for a next new object that will be created
     Techubdate.prevDate = newDate;
 
@@ -26,22 +27,24 @@ function Techubdate() {
     Techubdate.resetToPrevDate = function() {
         // if this date was 4th one, reset it by one, otherwise reset it by two
         if (Techubdate.prevDate - startDate != 0) {
-            if (Techubdate.counter % 4 == 0) {
+            if (Techubdate.counter % 4 == 0)
                 Techubdate.prevDate = new Date(Techubdate.prevDate.getFullYear(),
                     Techubdate.prevDate.getMonth(),
                     Techubdate.prevDate.getDate() - 1);
-            } else {
+            else
                 Techubdate.prevDate = new Date(Techubdate.prevDate.getFullYear(),
                     Techubdate.prevDate.getMonth(),
                     Techubdate.prevDate.getDate() - 2);
-            }
+
             Techubdate.counter -= 1;
         }
     }
-    // get full date as string
+
+    // get full date as a string
     this.getFullDate = function() {
         let day, month;
         switch (newDate.getDay()) {
+            default: alert(`This day doesn't exist!`); break;
             case 1: day = 'Mon'; break;
             case 2: day = 'Thu'; break;
             case 3: day = 'Wed'; break;
@@ -49,9 +52,9 @@ function Techubdate() {
             case 5: day = 'Fri'; break;
             case 6: day = 'Sat'; break;
             case 7: day = 'Sun'; break;
-            default: alert(`This day doesn't exist!`); break;
         }
         switch (newDate.getMonth()) {
+            default: alert(`This month doesn't exist!`); break;
             case 0: month = 'Jan'; break;
             case 1: month = 'Feb'; break;
             case 2: month = 'Mar'; break;
@@ -64,7 +67,6 @@ function Techubdate() {
             case 9: month = 'Oct'; break;
             case 10: month = 'Nov'; break;
             case 11: month = 'Dec'; break;
-            default: alert(`This month doesn't exist!`); break;
         }
         return `${day} ${newDate.getDate()} ${month}`;
     }
