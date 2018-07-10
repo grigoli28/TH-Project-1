@@ -4,8 +4,11 @@ removeLastGrade method removes student's last added grade from array;
 getGradeAvg method returns grade average for student;
 */
 
-function Student(name, id) {
-    let ID = id;
+function Student(name) {
+    if (Student.count == undefined)
+        Student.count = 0;
+    else Student.count += 1;
+    let ID = Student.count;
 
     this.getID = function() {
         return ID;
@@ -37,5 +40,8 @@ function Student(name, id) {
             return total + currValue;
         });
         return Math.round(gradeSum / grades.length * 10) / 10;
+    }
+    Student.decreaseCount = function() {
+        Student.count -= 1;
     }
 }

@@ -44,13 +44,15 @@
                     <div class="btn-block noselect">
                         <div id="add-day" class="btn btn--green"><span class="add-day">Add Day</span></div>
                         <div id="rm-day" class="btn btn--red hide"><span class="remove-day">Remove Day</span></div>
+                        <div id="add-stud" class="btn btn--blue"><span class="add-student">Add Student</span></div>
+                        <div id="rm-stud" class="btn btn--red"><span class="remove-student">Remove Student</span></div>
                     </div>
                 </div>
 
                 <div class="table__body">
                     <div class="students">
                         <div class="student__title">First & Last Names</div>
-                        <div id="student-0" class="student__item"></div>
+                        <!-- <div id="student-0" class="student__item"></div>
                         <div id="student-1" class="student__item"></div>
                         <div id="student-2" class="student__item"></div>
                         <div id="student-3" class="student__item"></div>
@@ -59,12 +61,12 @@
                         <div id="student-6" class="student__item"></div>
                         <div id="student-7" class="student__item"></div>
                         <div id="student-8" class="student__item"></div>
-                        <div id="student-9" class="student__item"></div>
+                        <div id="student-9" class="student__item"></div> -->
                     </div>
 
                     <div class="avg-grades">
                         <div id="tot-avg" class="avg-grade__title">Average</div>
-                        <div class="avg-grade__item" id="stud-0">0</div>
+                        <!-- <div class="avg-grade__item" id="stud-0">0</div>
                         <div class="avg-grade__item" id="stud-1">0</div>
                         <div class="avg-grade__item" id="stud-2">0</div>
                         <div class="avg-grade__item" id="stud-3">0</div>
@@ -73,7 +75,7 @@
                         <div class="avg-grade__item" id="stud-6">0</div>
                         <div class="avg-grade__item" id="stud-7">0</div>
                         <div class="avg-grade__item" id="stud-8">0</div>
-                        <div class="avg-grade__item" id="stud-9">0</div>
+                        <div class="avg-grade__item" id="stud-9">0</div> -->
                     </div>
                     <div class="grades"></div>
                 </div>
@@ -90,8 +92,9 @@
     <div class="prompt">
         <div class="prompt__window noselect">
             <div class="prompt__message"></div>
-            <div class="prompt__popup ">Please enter ONLY digits!</div>
-            <div class="prompt__popup prompt__popup--empty">Please enter a number!</div>
+            <div class="prompt__popup prompt__popup--empty">Please fill in the field!</div>
+            <div class="prompt__popup prompt__popup--grade">Please enter ONLY digits!</div>
+            <div class="prompt__popup prompt__popup--name">Please enter ONLY characters!</div>
             <input class="prompt__input" type="text">
             <div class="prompt__buttons">
                 <div id="ok" class="btn btn--green btn--ok">OK</div>
