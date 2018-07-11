@@ -1,13 +1,13 @@
 /* generateHTML function takes object as parameter and generates HTML node from it;
 object has following syntax: {
-    mainSelector (required),        // element selector in which you want to insert generated HTML
-    parent (required) {             // element in which you can create child elements
+    mainSelector (required),    // element selector in which you want to insert generated HTML
+    parent (required) {         // element in which you can create child elements
         element (required),
-        index (optional),           //it's a value from where we start counting parent elements
+        index (optional),       // it's a value from where we start counting parent elements
         content (optional),
         attributes (optional) { nameValuePair1, nameValuePair2, ... nameValuePairN }    // nameValuePair ==> attrName: attrValue
     },
-    firstChild (optional) {         // use this when you want first child element to be different from others, otherwise you can skip it
+    firstChild (optional) {     // use this when you want first child element to be different from others, otherwise you can skip it
         element (optional),
         content (optional),
         attributes (optional) { nameValuePair1, nameValuePair2, ... nameValuePairN }
@@ -26,15 +26,12 @@ function generateHTML({ mainSelector, parent, firstChild = 0, otherChilds = 0 })
     let mainNode = document.querySelector(mainSelector);
     let parentNode = document.createElement(parent.element);
     for (let key in parent.attributes) {
-        // set parent attributes
         parentNode.setAttribute(key, parent.attributes[key]);
     }
-    // give index to a parent element
-    if (parent.index != undefined) parentNode.setAttribute('data-index', `${parent.index}`);
-    // if parent has content
-    if (parent.content) {
+    if (parent.index != undefined)
+        parentNode.setAttribute('data-index', `${parent.index}`);
+    if (parent.content)
         parentNode.appendChild(document.createTextNode(parent.content));
-    }
     // if first child element is different from other children
     if (firstChild.element) {
         let firstChildNode = document.createElement(firstChild.element);
@@ -52,7 +49,6 @@ function generateHTML({ mainSelector, parent, firstChild = 0, otherChilds = 0 })
             for (let key in otherChilds.attributes) {
                 otherChildNode.setAttribute(key, otherChilds.attributes[key]);
                 if (otherChilds.IDs)
-                // give each element unique id, for accessing them in the future
                     otherChildNode.setAttribute('data-id', `${i}`);
             }
             if (otherChilds.content)
@@ -60,6 +56,5 @@ function generateHTML({ mainSelector, parent, firstChild = 0, otherChilds = 0 })
             parentNode.appendChild(otherChildNode);
         }
     }
-    // add created elements to main node
     mainNode.appendChild(parentNode);
 }

@@ -40,8 +40,7 @@ function Techubdate() {
         }
     }
 
-    // get full date as a string
-    this.getFullDate = function() {
+    this.toString = function() {
         let day, month;
         switch (newDate.getDay()) {
             default: alert(`This day doesn't exist!`); break;

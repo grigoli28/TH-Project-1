@@ -12,6 +12,7 @@
 
 <body>
     <header>
+        <!-- Student Statistics section -->
         <div class="container side-padding">
             <h1>Statistic of Students Results</h1>
             <div class="info">
@@ -39,43 +40,23 @@
     <main>
         <div class="container side-padding">
             <div class="table">
-                <div class="table__head">
+                <!-- Managing Days And Students section -->
+                <div class="table__head noselect">
                     <h2>Grade Table</h2>
-                    <div class="btn-block noselect">
-                        <div id="add-day" class="btn btn--green"><span class="add-day">Add Day</span></div>
-                        <div id="rm-day" class="btn btn--red hide"><span class="remove-day">Remove Day</span></div>
-                        <div id="add-stud" class="btn btn--blue"><span class="add-student">Add Student</span></div>
-                        <div id="rm-stud" class="btn btn--red"><span class="remove-student">Remove Student</span></div>
-                    </div>
+                    <div id="add-stud" class="btn btn--add-stud btn--blue"><span class="add-student">Add Student</span></div>
+                    <div id="add-day" class="btn btn--add-day btn--green"><span class="add-day">Add Day</span></div>
+                    <div id="rm-stud" class="btn btn--rm-stud btn--red hidden"><span class="remove-student">Remove Student</span></div>
+                    <div id="rm-day" class="btn btn--rm-day btn--red hidden"><span class="remove-day">Remove Day</span></div>
                 </div>
 
+                <!-- Managing Grades section -->
                 <div class="table__body">
                     <div class="students">
-                        <div class="student__title">First & Last Names</div>
-                        <!-- <div id="student-0" class="student__item"></div>
-                        <div id="student-1" class="student__item"></div>
-                        <div id="student-2" class="student__item"></div>
-                        <div id="student-3" class="student__item"></div>
-                        <div id="student-4" class="student__item"></div>
-                        <div id="student-5" class="student__item"></div>
-                        <div id="student-6" class="student__item"></div>
-                        <div id="student-7" class="student__item"></div>
-                        <div id="student-8" class="student__item"></div>
-                        <div id="student-9" class="student__item"></div> -->
+                        <div class="student__title">Students</div>
                     </div>
 
                     <div class="avg-grades">
                         <div id="tot-avg" class="avg-grade__title">Average</div>
-                        <!-- <div class="avg-grade__item" id="stud-0">0</div>
-                        <div class="avg-grade__item" id="stud-1">0</div>
-                        <div class="avg-grade__item" id="stud-2">0</div>
-                        <div class="avg-grade__item" id="stud-3">0</div>
-                        <div class="avg-grade__item" id="stud-4">0</div>
-                        <div class="avg-grade__item" id="stud-5">0</div>
-                        <div class="avg-grade__item" id="stud-6">0</div>
-                        <div class="avg-grade__item" id="stud-7">0</div>
-                        <div class="avg-grade__item" id="stud-8">0</div>
-                        <div class="avg-grade__item" id="stud-9">0</div> -->
                     </div>
                     <div class="grades"></div>
                 </div>
@@ -89,6 +70,7 @@
         </div>
     </footer>
 
+    <!-- Prompt Window section -->
     <div class="prompt">
         <div class="prompt__window noselect">
             <div class="prompt__message"></div>

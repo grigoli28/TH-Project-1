@@ -8,7 +8,7 @@ function Student(name) {
     if (Student.count == undefined)
         Student.count = 0;
     else Student.count += 1;
-    let ID = Student.count;
+    let ID = Student.count; // give each student ID
 
     this.getID = function() {
         return ID;

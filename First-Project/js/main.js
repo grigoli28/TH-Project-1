@@ -1,71 +1,47 @@
 'use strict';
 
-
-let studentNames = [
-    'Jano Bokuchava',
-    'Grigol Tchkoidze',
-    'Mamuka Anjaparidze',
-    'Nino Matskepladze',
-    'Otiko Pocxoraia',
-    'Mari Jananashvili',
-    'Temo Kiknadze',
-    'Dea Samniashvili',
-    'Nikoloz Asatiani',
-    'Nino Grigalashvili'
-];
-
 let techubStudents = [];
-
-// fill array with student objects and display students in HTML
-/*
-for (let i = 0; i < studentNames.length; i++) {
-    techubStudents.push(new Student(studentNames[i], i));
-    document.querySelector(`#student-${i}`).innerHTML = studentNames[i];
-}*/
 
 let totalDays = document.querySelector('#tot-days'),
     missedLessons = document.querySelector('#miss-less'),
     totalGrade = document.querySelector('#avg-grade'),
-    totalTechubStudents = document.querySelector('#tot-stud');
+    totalStudents = document.querySelector('#tot-stud');
 
-// add number of students in statistics
-totalTechubStudents.dataset.count = techubStudents.length;
-totalTechubStudents.textContent = totalTechubStudents.dataset.count;
-
-
-/* ==================== Student Statistics Section ==================== */
+totalStudents.dataset.count = techubStudents.length; // update student statistics
+totalStudents.textContent = totalStudents.dataset.count;
 
 
-// options for mutation observers to observe
+/* ==================== Statistics animation section ==================== */
+
 let options = { childList: true };
 
-// create mutation observers to watch and animate elements on change
 let daysObserver = new MutationObserver(mutationCB),
     lessonsObserver = new MutationObserver(mutationCB),
-    gradesObserver = new MutationObserver(mutationCB);
+    gradesObserver = new MutationObserver(mutationCB),
+    studentsObserver = new MutationObserver(mutationCB);
 
 daysObserver.observe(totalDays, options);
 lessonsObserver.observe(missedLessons, options);
 gradesObserver.observe(totalGrade, options);
+studentsObserver.observe(totalStudents, options);
+
 
 function mutationCB([{ target }]) {
     target.classList.toggle('animator');
-    // remove class after a while so that elements animate on every change when class is added again
-    setTimeout(() => {
+    setTimeout(() => { // remove class so that elements animate on every change when class is added again
         target.classList.toggle('animator');
     }, 150);
 }
 
 
-/* ========================== Add New Student Section ============================= */
+/* ========================== Add/Remove student section ============================= */
 
 let newStudRow = {
     mainSelector: '.students',
     parent: {
         element: 'div',
-        index: 0,
         attributes: {
-            'class': 'student__item',
+            'class': 'student__item'
         }
     }
 }
@@ -74,7 +50,6 @@ let newAvgGradeRow = {
     mainSelector: '.avg-grades',
     parent: {
         element: 'div',
-        index: 0,
         content: '0',
         attributes: {
             'class': 'avg-grade__item',
@@ -82,10 +57,8 @@ let newAvgGradeRow = {
     }
 }
 
-
-let studentsColNode = document.querySelector('.students');
-let avgGradeColNode = document.querySelector('.avg-grades');
-
+let studentsColumn = document.querySelector('.students');
+let avgGradeColumn = document.querySelector('.avg-grades');
 
 let addStudBtn = document.querySelector('#add-stud');
 addStudBtn.addEventListener('click', function addStudCB() {
@@ -94,31 +67,75 @@ addStudBtn.addEventListener('click', function addStudCB() {
 
 
 function addNewStudent(name) {
+    if (studentsColumn.children.length == 1) removeStudBtn.classList.toggle('hidden');
+
     techubStudents.push(new Student(name));
-    newStudRow.parent.attributes['id'] = `student-${Student.count}`;
-    newAvgGradeRow.parent.attributes['id'] = `stud-${Student.count}`;
+    for (let i = 0; i < totalDays.dataset.count; i++) {
+        techubStudents[techubStudents.length - 1].pushGrade(0);
+    }
+    totalStudents.dataset.count = Number(totalStudents.dataset.count) + 1;
+    totalStudents.textContent = totalStudents.dataset.count;
+
+    newStudRow.parent.attributes.id = `student-${techubStudents.length - 1}`; // add id
+    newAvgGradeRow.parent.attributes.id = `stud-${techubStudents.length - 1}`;
     generateHTML(newStudRow);
     generateHTML(newAvgGradeRow);
-    newStudRow.parent.index += 1;
-    newAvgGradeRow.parent.index += 1;
 
-    studentsColNode.lastChild.innerHTML = name;
+    studentsColumn.lastChild.innerHTML = name;
 
+    missedLessons.dataset.count = Number(missedLessons.dataset.count) + Number(totalDays.dataset.count);
+    missedLessons.textContent = missedLessons.dataset.count;
+
+    for (let column of gradeTable.children) { // add new row for current student (add new grade box at the end of each column)
+        generateHTML({
+            mainSelector: `[data-index="${column.dataset.index}"]`,
+            parent: {
+                element: 'div',
+                content: '0',
+                attributes: {
+                    'class': 'grade__item',
+                    'data-id': `${totalStudents.dataset.count - 1}`,
+                    'data-missed': 'true'
+                }
+            }
+        })
+    }
+    addPromptWindows();
+    updateTotalGradeAvg();
 }
 
 
+let removeStudBtn = document.querySelector('#rm-stud');
+removeStudBtn.addEventListener('click', removeLastStudent);
 
 
+function removeLastStudent() {
+    if (studentsColumn.children.length == 2) removeStudBtn.classList.toggle('hidden');
+
+    techubStudents.pop();
+    Student.decreaseCount();
+    totalStudents.dataset.count = Number(totalStudents.dataset.count) - 1;
+    totalStudents.textContent = totalStudents.dataset.count;
+
+    // decrease missed lessons count if we removed days that were marked as missed
+    for (let column of gradeTable.children) {
+        if (column.lastElementChild.dataset.missed == "true")
+            missedLessons.dataset.count = Number(missedLessons.dataset.count) - 1;
+    }
+    missedLessons.textContent = missedLessons.dataset.count;
+
+    // remove last grade box from each column
+    for (let column of gradeTable.children)
+        column.removeChild(column.lastElementChild);
+
+    studentsColumn.removeChild(studentsColumn.lastElementChild);
+    avgGradeColumn.removeChild(avgGradeColumn.lastElementChild);
+
+    updateTotalGradeAvg();
+}
 
 
-
-
-
-
-
-
-
-/* ==================== Prompt on mouse click section ==================== */
+/* ==================== Prompt window section ==================== */
 
 const enterKeyCode = 13;
 const escKeyCode = 27;
@@ -131,23 +148,23 @@ let promptBackgr = document.querySelector('.prompt'),
 
 
 function customPrompt(message, type = 'number') {
-    promptInput.value = ''; // reset input value to an empty string
-    promptBackgr.classList.add('show'); // display prompt window
-    promptInput.focus(); // auto focus input when prompt is shown
-    promptMessage.innerHTML = message; // insert given message
-    promptInput.oninput = () => validate(promptInput.value, type); // show popup to users if they enter invalid number/string
-    promptInput.onkeyup = inputCB; // allow user to use ESC and Enter on input
-    promptOk.onclick = okCB; // continue when OK button is pressed
-    promptCancel.onclick = cancelCB; // cancel when Cancel button is pressed
+    promptInput.value = ''; // reset input value
+    promptBackgr.classList.add('show');
+    promptInput.focus();
+    promptMessage.innerHTML = message;
+    promptInput.oninput = () => validate(promptInput.value, type); // show popup if user enters invalid number/string
+    promptInput.onkeyup = inputCB; // add ESC and Enter actions
+    promptOk.onclick = okCB;
+    promptCancel.onclick = cancelCB;
     let self = this;
 
     function okCB() {
-        if (validate(promptInput.value, type) && type == 'number') { // continue ONLY if entered number is valid
-            editGrade.call(self, promptInput.value); // insert given grade in grade table
+        if (validate(promptInput.value, type) && type == 'number') { // if we validated a number
+            editGrade.call(self, promptInput.value);
             hidePrompt();
             return;
         }
-        if (validate(promptInput.value, type) && type == 'string') {
+        if (validate(promptInput.value, type) && type == 'string') { // if we validated a string
             addNewStudent(promptInput.value);
             hidePrompt();
             return;
@@ -155,8 +172,7 @@ function customPrompt(message, type = 'number') {
     }
 
     function cancelCB() {
-        // reset all popups
-        invalidNumPopup.classList.remove('show');
+        invalidNumPopup.classList.remove('show'); // reset all popups
         invalidNamePopup.classList.remove('show');
         emptyFieldPopup.classList.remove('show');
         hidePrompt();
@@ -171,54 +187,42 @@ function customPrompt(message, type = 'number') {
 }
 
 
+/* ========================= Number/String validation section ============================= */
 
-
-
-
-
-
-
-
-
-/* ========================= Popups ============================= */
-
-
-let invalidNumPopup = document.querySelector('.prompt__popup--grade'), // popup when a number is invalid
-    invalidNamePopup = document.querySelector('.prompt__popup--name'), // popup when string is invalid
-    emptyFieldPopup = document.querySelector('.prompt__popup--empty'); // popup when input is empty
+let invalidNumPopup = document.querySelector('.prompt__popup--grade'),
+    invalidNamePopup = document.querySelector('.prompt__popup--name'),
+    emptyFieldPopup = document.querySelector('.prompt__popup--empty');
 
 
 function validate(value, type) {
     if (type == 'number') { // if we want validation for a number
-        if (value == '') { // if input is empty
-            invalidNumPopup.classList.remove('show'); // remove invalid number popup and add empty field popup
+        if (value == '') {
+            invalidNumPopup.classList.remove('show');
             emptyFieldPopup.classList.add('show');
             return false;
         }
-        emptyFieldPopup.classList.remove('show'); // remove popup if user entered a number
+        emptyFieldPopup.classList.remove('show');
 
         if (isNaN(value)) { // if entered number is invalid
             invalidNumPopup.classList.add('show');
             return false;
         }
-        invalidNumPopup.classList.remove('show'); // remove popup if a number is valid
+        invalidNumPopup.classList.remove('show');
         return true;
     }
     if (type == 'string') { // if we want validation for a string
-        if (value == '') { // if input is empty
-            // separateNamePopup.classList.remove('show');
-            invalidNamePopup.classList.remove('show'); // remove invalid name popup and add empty field popup
+        if (value == '') {
+            invalidNamePopup.classList.remove('show');
             emptyFieldPopup.classList.add('show');
             return false;
         }
-        emptyFieldPopup.classList.remove('show'); // remove popup if user entered a name
+        emptyFieldPopup.classList.remove('show');
 
-        if (!isNaN(value)) { // if user includes digits in name
-            // separateNamePopup.classList.remove('show');
+        if (!isNaN(value)) { // if user enteres only digits
             invalidNamePopup.classList.add('show');
             return false;
         }
-        invalidNamePopup.classList.remove('show'); // remove popup if a string is valid
+        invalidNamePopup.classList.remove('show');
         return true;
     }
 }
@@ -229,12 +233,14 @@ function hidePrompt() {
 }
 
 
+/* ========================= Add/Edit grade section ================================ */
+
 function editGrade(studentGrade) {
-    studentGrade = Math.round(Number(studentGrade)); // round student's grade
+    studentGrade = Math.round(Number(studentGrade));
     // make sure grade is between 0 and 5;
     studentGrade = (studentGrade < 0) ? 0 : ((studentGrade > 5) ? 5 : studentGrade);
-    setGradeAndColor.call(this, studentGrade); // set box color according to grade
-    // add student grade in corresponding student's grade array
+    setGradeAndColor.call(this, studentGrade);
+    // replace old grade in corresponding place in the array
     techubStudents[Number(this.dataset.id)]
         .setGrade(studentGrade, Number(this.parentElement.dataset.index));
     // if user entered any number exept 0, it means student was present on that lesson and we need to update table accordingly
@@ -245,7 +251,7 @@ function editGrade(studentGrade) {
             this.dataset.missed = false; // mark that student was present on that day
         }
     }
-    // if user edited previous grade and entered 0 instead of it, we need to mark this day as missed and update table 
+    // if user changed previous grade to 0, mark this day as missed and update table 
     else {
         if (this.dataset.missed == 'false') {
             missedLessons.dataset.count = Number(missedLessons.dataset.count) + 1;
@@ -253,7 +259,7 @@ function editGrade(studentGrade) {
             this.dataset.missed = true; // mark that student was absent on that day
         }
     }
-    // update given student's grade average
+    // update current student's grade average
     document.querySelector(`#stud-${this.dataset.id}`).textContent =
         techubStudents[Number(this.dataset.id)].getGradeAvg();
 
@@ -261,8 +267,16 @@ function editGrade(studentGrade) {
 }
 
 
-/* ==================== Add/Remove Day Section ==================== */
+function horizScroll(event) {
+    if (gradeTable.scrollWidth > gradeTable.clientWidth) { // if we have horizontal scroll
+        gradeTable.scrollLeft += ((event.deltaY > 0 ? 1 : -1) * 50); // determine whether we scroll horizontally left or right
+        if (gradeTable.scrollLeft > 0 && gradeTable.scrollLeft < (gradeTable.scrollWidth - gradeTable.clientWidth))
+            event.preventDefault();
+    }
+}
 
+
+/* ==================== Add/Remove Day Section ==================== */
 
 /* newColumnObj is template for new column added by "Add Day" button */
 let newColumnObj = {
@@ -293,17 +307,16 @@ let newColumnObj = {
 }
 
 
-// Add event on mouse click to create new day in table
 let addDayBtn = document.querySelector("#add-day");
 addDayBtn.addEventListener('click', createNewDay);
 addDayBtn.addEventListener('click', addPromptWindows);
 
 
-/* adds prmopt window on each grade box in newly added column*/
+/* adds prmopt window on each grade box in newly added column */
 function addPromptWindows() {
     let gradeBoxes = Array.from(document.querySelectorAll('.grade__item'));
     for (let node of gradeBoxes) {
-        node.addEventListener('click', promptCB);
+        node.onclick = promptCB;
     }
 }
 
@@ -313,35 +326,33 @@ function promptCB({ target }) {
 }
 
 
-// Add event on mouse click to remove last day from table
 let removeDayBtn = document.querySelector("#rm-day");
 removeDayBtn.addEventListener('click', removeLastDay);
 
-let gradeTable = document.querySelector('.grades'); // gets grade table reference node
-gradeTable.addEventListener('wheel', horizScroll); // enables user to scroll horizontally with a mouse wheel
+let gradeTable = document.querySelector('.grades');
+gradeTable.addEventListener('wheel', horizScroll); // enable horizontal scrolling
 
 
 function createNewDay() {
-    // if remove button was hidden, display it
-    if (gradeTable.children.length == 0) removeDayBtn.classList.toggle('hide');
-    // add this property to create a new Techubdate in new column every time user adds new day
-    newColumnObj.firstChild.content = new Techubdate().getFullDate();
-    newColumnObj.otherChilds.count = Student.count + 1;
+    if (gradeTable.children.length == 0) // if remove button was hidden, display it
+        removeDayBtn.classList.toggle('hidden');
+
+    // create a new Techubdate object in new column every time user adds new day
+    newColumnObj.firstChild.content = new Techubdate().toString();
+    newColumnObj.otherChilds.count = techubStudents.length;
     generateHTML(newColumnObj);
 
-    // increase column index by one every time new day is created
     newColumnObj.parent.index += 1;
 
     totalDays.dataset.count = Number(totalDays.dataset.count) + 1;
     totalDays.textContent = totalDays.dataset.count;
 
-    // increase missed lessons count by student number
     missedLessons.dataset.count = Number(missedLessons.dataset.count) + techubStudents.length;
     missedLessons.textContent = missedLessons.dataset.count;
 
-    // add 0 to every student's grade array
     for (let student of techubStudents) {
         student.pushGrade(0);
+        // update grade average
         document.querySelector(`#stud-${student.getID()}`).textContent =
             student.getGradeAvg();
     }
@@ -356,15 +367,15 @@ function removeLastDay() {
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // it has symbol.iterator but still gives error in microsoft edge !!!review
     // count how many missed lessons was on that day and decrease missed lessons number accordingly
-    for (let item of gradeTable.lastChild.children)
+    for (let item of gradeTable.lastElementChild.children)
         if (item.dataset.missed == "true")
             missedLessons.dataset.count = Number(missedLessons.dataset.count) - 1;
     missedLessons.textContent = missedLessons.dataset.count;
 
-    gradeTable.removeChild(gradeTable.lastChild); // removes last column (day) from grade table
+    gradeTable.removeChild(gradeTable.lastElementChild); // removes last column (day) from grade table
 
     // if all days are removed, hide remove day button
-    if (gradeTable.children.length == 0) removeDayBtn.classList.toggle('hide');
+    if (gradeTable.children.length == 0) removeDayBtn.classList.toggle('hidden');
 
     totalDays.dataset.count = Number(totalDays.dataset.count) - 1;
     totalDays.textContent = totalDays.dataset.count;
@@ -380,21 +391,13 @@ function removeLastDay() {
 
 
 function updateTotalGradeAvg() {
-    let gradesTotal = 0;
-    techubStudents.forEach((student) => {
-        gradesTotal += student.getGradeAvg();
-    })
-
-    // display average grade in decimal number
-    document.querySelector('#avg-grade').textContent =
-        Math.round(gradesTotal / techubStudents.length * 100) / 100;
-}
-
-
-function horizScroll(event) {
-    if (gradeTable.scrollWidth > 950) { // if we have horizontal scroll
-        let sign = (event.deltaY > 0) ? 1 : -1; // sign determines whether we scroll horizontally left or right
-        gradeTable.scrollLeft += (sign * 50); // if sign > 0 add 50, if not subtract 50
-        event.preventDefault();
-    }
+    if (techubStudents.length) {
+        let gradesTotal = 0;
+        techubStudents.forEach((student) => {
+            gradesTotal += student.getGradeAvg();
+        })
+        document.querySelector('#avg-grade').textContent =
+            Math.round(gradesTotal / techubStudents.length * 100) / 100;
+    } else // if no student was added yet display 0
+        document.querySelector('#avg-grade').textContent = 0;
 }
