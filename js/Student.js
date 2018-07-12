@@ -16,6 +16,10 @@ function Student(name) {
     let fullName = name;
 
     this.setName = function(str) {
+        if (str.length === 0) {
+            console.log('Name not valid!');
+            return;
+        }
         fullName = str;
     }
     this.getName = function() {

@@ -198,7 +198,7 @@ h2 {
 }
 
 
-/* noselect class restricts user to select text !!!review */
+/* noselect class restricts user to select a text */
 
 .noselect {
     /* Safari */
@@ -420,11 +420,11 @@ footer {
 }
 
 .show {
-    display: initial;
+    display: initial !important;
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .animator {

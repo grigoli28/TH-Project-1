@@ -240,24 +240,20 @@ function editGrade(studentGrade) {
     // make sure grade is between 0 and 5;
     studentGrade = (studentGrade < 0) ? 0 : ((studentGrade > 5) ? 5 : studentGrade);
     setGradeAndColor.call(this, studentGrade);
-    // replace old grade in corresponding place in the array
+    // replace old grade in the array at a corresponding index
     techubStudents[Number(this.dataset.id)]
         .setGrade(studentGrade, Number(this.parentElement.dataset.index));
-    // if user entered any number exept 0, it means student was present on that lesson and we need to update table accordingly
-    if (studentGrade != 0) {
-        if (this.dataset.missed == 'true') {
-            missedLessons.dataset.count = Number(missedLessons.dataset.count) - 1;
-            missedLessons.textContent = missedLessons.dataset.count;
-            this.dataset.missed = false; // mark that student was present on that day
-        }
+    // if user entered a grade, mark this lesson as not missed and update table
+    if (this.dataset.missed == 'true' && studentGrade != 0) {
+        this.dataset.missed = false;
+        missedLessons.dataset.count = Number(missedLessons.dataset.count) - 1;
+        missedLessons.textContent = missedLessons.dataset.count;
     }
     // if user changed previous grade to 0, mark this day as missed and update table 
-    else {
-        if (this.dataset.missed == 'false') {
-            missedLessons.dataset.count = Number(missedLessons.dataset.count) + 1;
-            missedLessons.textContent = missedLessons.dataset.count;
-            this.dataset.missed = true; // mark that student was absent on that day
-        }
+    if (this.dataset.missed == 'false' && studentGrade == 0) {
+        this.dataset.missed = true;
+        missedLessons.dataset.count = Number(missedLessons.dataset.count) + 1;
+        missedLessons.textContent = missedLessons.dataset.count;
     }
     // update current student's grade average
     document.querySelector(`#stud-${this.dataset.id}`).textContent =
@@ -270,8 +266,7 @@ function editGrade(studentGrade) {
 function horizScroll(event) {
     if (gradeTable.scrollWidth > gradeTable.clientWidth) { // if we have horizontal scroll
         gradeTable.scrollLeft += ((event.deltaY > 0 ? 1 : -1) * 50); // determine whether we scroll horizontally left or right
-        if (gradeTable.scrollLeft > 0 && gradeTable.scrollLeft < (gradeTable.scrollWidth - gradeTable.clientWidth))
-            event.preventDefault();
+        event.preventDefault();
     }
 }
 
@@ -361,12 +356,9 @@ function createNewDay() {
 
 
 function removeLastDay() {
-    Techubdate.resetToPrevDate(); // reset date by to a previous one
-    newColumnObj.parent.index -= 1; // decrease column index count
+    Techubdate.resetToPrevDate();
+    newColumnObj.parent.index -= 1; // decrease column index
 
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // it has symbol.iterator but still gives error in microsoft edge !!!review
-    // count how many missed lessons was on that day and decrease missed lessons number accordingly
     for (let item of gradeTable.lastElementChild.children)
         if (item.dataset.missed == "true")
             missedLessons.dataset.count = Number(missedLessons.dataset.count) - 1;
