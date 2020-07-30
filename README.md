@@ -1,6 +1,6 @@
 # Student Statistic Management Project
 
-[:link:**View Site**](https://grigoli28.github.io/TH-Project-1/)
+[:link:**View Site**](https://grigoll.github.io/TH-Project-1/)
 
 As a first step project you are going to develop **Student Statistic Management** system using **only** HTML/CSS/Javascript 
 The application will have a main table, where the student’s names are listed with the grade points assigned to them for every lecture and the average of points. 
